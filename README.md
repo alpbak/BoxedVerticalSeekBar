@@ -98,3 +98,8 @@ To use the seekbar in your activity:
 ```xml
   app:touchDisabled="false"
 ```
+
+# License
+The library is a free software, you can use it, extended with no requirement to open source your changes. You can also make paid apps using it.
+
+Pull requests are welcomed
