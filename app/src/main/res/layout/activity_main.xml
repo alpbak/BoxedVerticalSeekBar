@@ -107,15 +107,15 @@
         app:cornerRadius="20"
         app:defaultImage="@drawable/ic_volume_down_black_48dp"
         app:defaultValue="140"
-        app:imageEnabled="true"
         app:max="300"
+        app:imageEnabled="true"
         app:maxImage="@drawable/ic_volume_up_black_48dp"
         app:minImage="@drawable/ic_volume_off_black_48dp"
         app:progressColor="@color/color_progress"
         app:step="5"
+        app:textEnabled="true"
         app:textBottomPadding="20"
         app:textColor="#FF0000"
-        app:textEnabled="true"
         app:textSize="12sp"
         app:touchDisabled="true" />
 </RelativeLayout>

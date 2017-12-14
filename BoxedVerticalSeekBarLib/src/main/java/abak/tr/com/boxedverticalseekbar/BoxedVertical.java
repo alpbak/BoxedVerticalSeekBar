@@ -18,6 +18,7 @@ import android.graphics.Region;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -167,6 +168,9 @@ public class BoxedVertical extends View{
         mTextPaint.setAntiAlias(true);
         mTextPaint.setStyle(Paint.Style.FILL);
         mTextPaint.setTextSize(mTextSize);
+
+        scrHeight = context.getResources().getDisplayMetrics().heightPixels;
+
     }
 
     @Override
@@ -317,7 +321,6 @@ public class BoxedVertical extends View{
 
         mPoints = (mPoints > scrHeight) ? scrHeight : mPoints;
         mPoints = (mPoints < 0) ? 0 : mPoints;
-
         mPoints = ((scrHeight - mPoints) * mMax) / scrHeight;
         mPoints = mPoints - (mPoints % mStep);
 
@@ -342,13 +345,17 @@ public class BoxedVertical extends View{
     }
 
     public void setValue(int points) {
+
+
+
+
+
         points = points > mMax ? mMax : points;
         points = points < mMin ? mMin : points;
-
         points = mMax - points;
-        double r = ((double)scrHeight / mMax) * points;
-        updateProgress((int) r);
+        //double r = ((double)scrHeight / mMax) * points;
 
+        updateProgress(points);
     }
 
     public int getValue() {

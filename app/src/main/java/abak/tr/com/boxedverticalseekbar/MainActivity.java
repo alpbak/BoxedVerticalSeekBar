@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        bv.setValue(40);
+
 
     }
 
