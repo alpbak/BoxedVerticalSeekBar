@@ -121,7 +121,7 @@ public class BoxedVertical extends View{
 
             mPoints = a.getInteger(R.styleable.BoxedVertical_points, mPoints);
             mMax = a.getInteger(R.styleable.BoxedVertical_max, mMax);
-            mMax = a.getInteger(R.styleable.BoxedVertical_max, mMax);
+            mMin = a.getInteger(R.styleable.BoxedVertical_min, mMin);
             mStep = a.getInteger(R.styleable.BoxedVertical_step, mStep);
             mDefaultValue = a.getInteger(R.styleable.BoxedVertical_defaultValue, mDefaultValue);
             mCornerRadius = a.getInteger(R.styleable.BoxedVertical_cornerRadius, mCornerRadius);
