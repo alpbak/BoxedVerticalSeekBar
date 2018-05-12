@@ -341,6 +341,10 @@ public class BoxedVertical extends View{
         invalidate();
     }
 
+    /**
+     * Gets a value, converts it to progress for the seekBar and updates it.
+     * @param value The value given
+     */
     private void updateProgressByValue(int value) {
         mPoints = value;
 
