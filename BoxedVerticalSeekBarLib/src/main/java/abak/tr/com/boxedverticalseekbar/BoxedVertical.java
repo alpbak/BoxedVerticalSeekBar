@@ -319,13 +319,12 @@ public class BoxedVertical extends View{
 
     private void updateProgress(int progress) {
         mProgressSweep = progress;
-        mPoints = progress;
 
-        mPoints = (mPoints > scrHeight) ? scrHeight : mPoints;
-        mPoints = (mPoints < 0) ? 0 : mPoints;
+        progress = (progress > scrHeight) ? scrHeight : progress;
+        progress = (progress < 0) ? 0 : progress;
 
         //convert progress to min-max range
-        mPoints = mPoints * (mMax - mMin) / scrHeight + mMin;
+        mPoints = progress * (mMax - mMin) / scrHeight + mMin;
         //reverse value because progress is descending
         mPoints = mMax + mMin - mPoints;
         //if value is not max or min, apply step
