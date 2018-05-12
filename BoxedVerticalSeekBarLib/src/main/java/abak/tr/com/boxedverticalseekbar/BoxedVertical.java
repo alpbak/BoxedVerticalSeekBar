@@ -329,9 +329,28 @@ public class BoxedVertical extends View{
         //reverse value because progress is descending
         mPoints = mMax + mMin - mPoints;
         //if value is not max or min, apply step
-        if (mPoints != mMax && mPoints != mMin){
+        if (mPoints != mMax && mPoints != mMin) {
             mPoints = mPoints - (mPoints % mStep) + (mMin % mStep);
         }
+
+        if (mOnValuesChangeListener != null) {
+            mOnValuesChangeListener
+                    .onPointsChanged(this, mPoints);
+        }
+
+        invalidate();
+    }
+
+    private void updateProgressByValue(int value) {
+        mPoints = value;
+
+        mPoints = (mPoints > mMax) ? mMax : mPoints;
+        mPoints = (mPoints < mMin) ? mMin : mPoints;
+
+        //convert min-max range to progress
+        mProgressSweep = (mPoints - mMin) * scrHeight/(mMax - mMin);
+        //reverse value because progress is descending
+        mProgressSweep = scrHeight - mProgressSweep;
 
         if (mOnValuesChangeListener != null) {
             mOnValuesChangeListener
@@ -354,17 +373,10 @@ public class BoxedVertical extends View{
     }
 
     public void setValue(int points) {
-
-
-
-
-
         points = points > mMax ? mMax : points;
         points = points < mMin ? mMin : points;
-        points = mMax - points;
-        //double r = ((double)scrHeight / mMax) * points;
 
-        updateProgress(points);
+        updateProgressByValue(points);
     }
 
     public int getValue() {
