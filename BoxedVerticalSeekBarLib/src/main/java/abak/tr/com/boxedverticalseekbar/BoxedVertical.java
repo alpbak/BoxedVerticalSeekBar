@@ -18,6 +18,7 @@ import android.graphics.Region;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,6 +26,7 @@ import android.view.View;
 import junit.framework.Assert;
 
 public class BoxedVertical extends View{
+    private static final String TAG = BoxedVertical.class.getSimpleName();
 
     private static final int MAX = 100;
     private static final int MIN = 0;
@@ -321,13 +323,15 @@ public class BoxedVertical extends View{
 
         mPoints = (mPoints > scrHeight) ? scrHeight : mPoints;
         mPoints = (mPoints < 0) ? 0 : mPoints;
-        //mPoints = ((scrHeight - mPoints) * mMax) / scrHeight;
-        //mPoints = mPoints - (mPoints % mStep);
 
         //convert progress to min-max range
-        mPoints = mPoints * (mMax - mMin)/scrHeight + mMin;
+        mPoints = mPoints * (mMax - mMin) / scrHeight + mMin;
         //reverse value because progress is descending
         mPoints = mMax + mMin - mPoints;
+        //if value is not max or min, apply step
+        if (mPoints != mMax && mPoints != mMin){
+            mPoints = mPoints - (mPoints % mStep) + (mMin % mStep);
+        }
 
         if (mOnValuesChangeListener != null) {
             mOnValuesChangeListener
