@@ -321,8 +321,13 @@ public class BoxedVertical extends View{
 
         mPoints = (mPoints > scrHeight) ? scrHeight : mPoints;
         mPoints = (mPoints < 0) ? 0 : mPoints;
-        mPoints = ((scrHeight - mPoints) * mMax) / scrHeight;
-        mPoints = mPoints - (mPoints % mStep);
+        //mPoints = ((scrHeight - mPoints) * mMax) / scrHeight;
+        //mPoints = mPoints - (mPoints % mStep);
+
+        //convert progress to min-max range
+        mPoints = mPoints * (mMax - mMin)/scrHeight + mMin;
+        //reverse value because progress is descending
+        mPoints = mMax + mMin - mPoints;
 
         if (mOnValuesChangeListener != null) {
             mOnValuesChangeListener
