@@ -2,6 +2,7 @@ package abak.tr.com.boxedverticalseekbar;
 
 /**
  * Created by alpaslanbak on 29/09/2017.
+ * Modified by Nick Panagopoulos @npanagop on 12/05/2018.
  */
 
 import android.content.Context;
