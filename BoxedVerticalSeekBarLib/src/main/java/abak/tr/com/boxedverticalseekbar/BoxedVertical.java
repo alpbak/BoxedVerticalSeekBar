@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -18,7 +17,6 @@ import android.graphics.Region;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -124,7 +122,7 @@ public class BoxedVertical extends View{
             mMax = a.getInteger(R.styleable.BoxedVertical_max, mMax);
             mStep = a.getInteger(R.styleable.BoxedVertical_step, mStep);
             mDefaultValue = a.getInteger(R.styleable.BoxedVertical_defaultValue, mDefaultValue);
-            mCornerRadius = a.getInteger(R.styleable.BoxedVertical_cornerRadius, mCornerRadius);
+            mCornerRadius = a.getInteger(R.styleable.BoxedVertical_libCornerRadius, mCornerRadius);
             mtextBottomPadding = a.getInteger(R.styleable.BoxedVertical_textBottomPadding, mtextBottomPadding);
             //Images
             mImageEnabled = a.getBoolean(R.styleable.BoxedVertical_imageEnabled, mImageEnabled);

@@ -5,7 +5,7 @@
         <attr name="max" format="integer" />
         <attr name="defaultValue" format="integer" />
         <attr name="textBottomPadding" format="integer" />
-        <attr name="cornerRadius" format="integer" />
+        <attr name="libCornerRadius" format="integer" />
         <attr name="step" format="integer"/>
 
         <attr name="defaultImage" format="reference"/>

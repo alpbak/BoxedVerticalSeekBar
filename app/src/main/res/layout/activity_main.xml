@@ -104,7 +104,7 @@
         android:layout_marginTop="30dp"
         android:layout_weight="1"
         app:backgroundColor="@color/color_background"
-        app:cornerRadius="20"
+        app:libCornerRadius="20"
         app:defaultImage="@drawable/ic_volume_down_black_48dp"
         app:defaultValue="140"
         app:max="300"

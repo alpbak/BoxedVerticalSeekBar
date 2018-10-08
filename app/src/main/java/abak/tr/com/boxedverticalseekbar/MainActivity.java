@@ -39,7 +39,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        bv.setValue(40);
+        bv.setValue(60);
+
+        System.out.println("VALUE: " + bv.getValue());
+        valueTextView.setText("Current Valuex is " + String.valueOf(bv.getValue()));
 
 
     }
