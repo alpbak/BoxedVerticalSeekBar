@@ -2,12 +2,14 @@ package abak.tr.com.boxedverticalseekbar;
 
 /**
  * Created by alpaslanbak on 29/09/2017.
+ * Modified by Nick Panagopoulos @npanagop on 12/05/2018.
  */
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -17,12 +19,15 @@ import android.graphics.Region;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 
 import junit.framework.Assert;
 
 public class BoxedVertical extends View{
+    private static final String TAG = BoxedVertical.class.getSimpleName();
 
     private static final int MAX = 100;
     private static final int MIN = 0;
@@ -119,10 +124,10 @@ public class BoxedVertical extends View{
 
             mPoints = a.getInteger(R.styleable.BoxedVertical_points, mPoints);
             mMax = a.getInteger(R.styleable.BoxedVertical_max, mMax);
-            mMax = a.getInteger(R.styleable.BoxedVertical_max, mMax);
+            mMin = a.getInteger(R.styleable.BoxedVertical_min, mMin);
             mStep = a.getInteger(R.styleable.BoxedVertical_step, mStep);
             mDefaultValue = a.getInteger(R.styleable.BoxedVertical_defaultValue, mDefaultValue);
-            mCornerRadius = a.getInteger(R.styleable.BoxedVertical_libCornerRadius, mCornerRadius);
+            mCornerRadius = a.getInteger(R.styleable.BoxedVertical_cornerRadius, mCornerRadius);
             mtextBottomPadding = a.getInteger(R.styleable.BoxedVertical_textBottomPadding, mtextBottomPadding);
             //Images
             mImageEnabled = a.getBoolean(R.styleable.BoxedVertical_imageEnabled, mImageEnabled);
@@ -315,12 +320,41 @@ public class BoxedVertical extends View{
 
     private void updateProgress(int progress) {
         mProgressSweep = progress;
-        mPoints = progress;
 
-        mPoints = (mPoints > scrHeight) ? scrHeight : mPoints;
-        mPoints = (mPoints < 0) ? 0 : mPoints;
-        mPoints = ((scrHeight - mPoints) * mMax) / scrHeight;
-        mPoints = mPoints - (mPoints % mStep);
+        progress = (progress > scrHeight) ? scrHeight : progress;
+        progress = (progress < 0) ? 0 : progress;
+
+        //convert progress to min-max range
+        mPoints = progress * (mMax - mMin) / scrHeight + mMin;
+        //reverse value because progress is descending
+        mPoints = mMax + mMin - mPoints;
+        //if value is not max or min, apply step
+        if (mPoints != mMax && mPoints != mMin) {
+            mPoints = mPoints - (mPoints % mStep) + (mMin % mStep);
+        }
+
+        if (mOnValuesChangeListener != null) {
+            mOnValuesChangeListener
+                    .onPointsChanged(this, mPoints);
+        }
+
+        invalidate();
+    }
+
+    /**
+     * Gets a value, converts it to progress for the seekBar and updates it.
+     * @param value The value given
+     */
+    private void updateProgressByValue(int value) {
+        mPoints = value;
+
+        mPoints = (mPoints > mMax) ? mMax : mPoints;
+        mPoints = (mPoints < mMin) ? mMin : mPoints;
+
+        //convert min-max range to progress
+        mProgressSweep = (mPoints - mMin) * scrHeight/(mMax - mMin);
+        //reverse value because progress is descending
+        mProgressSweep = scrHeight - mProgressSweep;
 
         if (mOnValuesChangeListener != null) {
             mOnValuesChangeListener
@@ -343,17 +377,10 @@ public class BoxedVertical extends View{
     }
 
     public void setValue(int points) {
-
-
-
-
-
         points = points > mMax ? mMax : points;
         points = points < mMin ? mMin : points;
-        points = mMax - points;
-        //double r = ((double)scrHeight / mMax) * points;
 
-        updateProgress(points);
+        updateProgressByValue(points);
     }
 
     public int getValue() {
