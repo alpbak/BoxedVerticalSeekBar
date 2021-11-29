@@ -24,7 +24,6 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 
-import junit.framework.Assert;
 
 public class BoxedVertical extends View{
     private static final String TAG = BoxedVertical.class.getSimpleName();
@@ -133,9 +132,9 @@ public class BoxedVertical extends View{
             mImageEnabled = a.getBoolean(R.styleable.BoxedVertical_imageEnabled, mImageEnabled);
 
             if (mImageEnabled){
-                Assert.assertNotNull("When images are enabled, defaultImage can not be null. Please assign a drawable in the layout XML file", a.getDrawable(R.styleable.BoxedVertical_defaultImage));
-                Assert.assertNotNull("When images are enabled, minImage can not be null. Please assign a drawable in the layout XML file", a.getDrawable(R.styleable.BoxedVertical_minImage));
-                Assert.assertNotNull("When images are enabled, maxImage can not be null. Please assign a drawable in the layout XML file", a.getDrawable(R.styleable.BoxedVertical_maxImage));
+                assert a.getDrawable(R.styleable.BoxedVertical_defaultImage) != null : "When images are enabled, defaultImage can not be null. Please assign a drawable in the layout XML file";
+                assert a.getDrawable(R.styleable.BoxedVertical_minImage) != null : "When images are enabled, minImage can not be null. Please assign a drawable in the layout XML file";
+                assert a.getDrawable(R.styleable.BoxedVertical_maxImage) != null : "When images are enabled, maxImage can not be null. Please assign a drawable in the layout XML file";
 
                 mDefaultImage = ((BitmapDrawable) a.getDrawable(R.styleable.BoxedVertical_defaultImage)).getBitmap();
                 mMinImage = ((BitmapDrawable) a.getDrawable(R.styleable.BoxedVertical_minImage)).getBitmap();
